@@ -11,3 +11,35 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  REFUNDED
+}
+
+model Booking {
+  id         String        @id @default(uuid())
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+  status     BookingStatus @default(PENDING)
+  totalPrice Decimal       @db.Decimal(10, 2)
+
+  userId     String
+  showtimeId String
+  tickets    Ticket[]
+
+  @@index([userId])
+  @@index([showtimeId])
+}
+
+model Ticket {
+  id         String  @id @default(uuid())
+  price      Decimal @db.Decimal(10, 2)
+  seatId     String
+  seatLabel  String?
+  showtimeId String
+  bookingId  String
+  booking    Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+}
