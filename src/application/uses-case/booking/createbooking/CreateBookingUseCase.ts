@@ -1,19 +1,13 @@
-import { IBookingRepository } from "src/domain/repositories/IBookingRepository";
-import { Booking } from "src/domain/entites/Booking";
-import { BookingStatus } from "src/domain/value-objects/bookingStatus";
-import { CreateBookingDto } from "./CreateBookingDto";
-import { Ticket } from "src/domain/entites/Ticket";
-import { CreateTicketUseCase } from "../../ticket/createTicket/CreateTicketUseCase";
+import { CreateBookingDto } from './CreateBookingDto';
+import { IBookingRepository } from '../../../../domain/repositories/IbookingRepository';
+import { Booking } from '../../../../domain/entities/Booking';
+
 export class CreateBookingUseCase {
-    constructor(private readonly bookingRepository: IBookingRepository, private ticketUseCase: CreateTicketUseCase) { }
+  constructor(private readonly bookingRepository: IBookingRepository) {}
 
-    async execute(dto: CreateBookingDto): Promise<void> {
-        // vérifier que les tickest existent
-        // lier les tickets au booking
-        // créer le booking
-        // mettre à jour les tickets
-        // retourner le booking
-    }
+  async execute(dto: CreateBookingDto): Promise<void> {
+    const booking =  Booking.createBooking({
 
-
+    });
+  }
 }
