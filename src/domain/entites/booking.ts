@@ -1,15 +1,37 @@
-import { Ticket } from "./ticket";
+import { BookingStatus } from "../value-objects/bookingStatus";
+import { Ticket } from "./Ticket";
 
 export class Booking {
     private constructor(
-        private readonly id: string,
-        private readonly createdAt: Date,
-        private readonly updatedAt: Date,
-        private readonly status: string,
-        private readonly totalPrice: number,
-        private readonly userId: string,
-        private readonly showtimeId: string,
-        private readonly tickets: Ticket[],
+        public readonly id: string,
+        public readonly createdAt: Date,
+        public readonly updatedAt: Date,
+        public readonly status: BookingStatus,
+        public readonly totalPrice: number,
+        public readonly userId: string,
+        public readonly showtimeId: string,
+        public readonly tickets: Ticket[],
     ) {
+    }
+    public static create(
+        id: string,
+        createdAt: Date,
+        updatedAt: Date | null,
+        status: BookingStatus,
+        totalPrice: number,
+        userId: string,
+        showtimeId: string,
+        tickets: Ticket[],
+    ) {
+        return new Booking(
+            id,
+            createdAt,
+            updatedAt,
+            status,
+            totalPrice,
+            userId,
+            showtimeId,
+            tickets
+        )
     }
 }

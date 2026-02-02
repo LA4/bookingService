@@ -1,4 +1,4 @@
-import { Booking } from "../entites/booking";
+import { Booking } from "../entites/Booking";
 
 export interface IBookingRepository {
     create(booking: Booking): Promise<void>;
