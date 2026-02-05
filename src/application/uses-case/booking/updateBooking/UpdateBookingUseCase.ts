@@ -1,5 +1,4 @@
 import { IBookingRepository } from 'src/domain/repositories/IbookingRepository';
-import { Booking } from 'src/domain/entities/booking/Booking';
 import { UpdateBookingDto } from './UpdateBookingDto';
 
 export class UpdateBookingUseCase {
@@ -12,19 +11,20 @@ export class UpdateBookingUseCase {
       throw new Error(`Booking with id ${dto.bookingId} not found`);
     }
 
-    // Mettre à jour les propriétés modifiables
+    // Mettre à jour les propriétés modifiables via les méthodes métier
     if (dto.status) {
-      booking.status = dto.status;
+      booking.updateStatus(dto.status);
     }
 
     if (dto.seatIds) {
-      booking.seatIds = dto.seatIds;
+      booking.updateSeats(dto.seatIds);
     }
 
     if (dto.tickets) {
-      booking.tickets = dto.tickets;
+      booking.updateTickets(dto.tickets);
     }
 
+    // Sauvegarder le booking modifié
     await this.bookingRepository.update(booking);
   }
 }

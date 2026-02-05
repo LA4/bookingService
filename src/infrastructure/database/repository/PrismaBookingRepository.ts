@@ -3,7 +3,8 @@ import { Ticket } from 'src/domain/entities/Ticket';
 import { IBookingRepository } from 'src/domain/repositories/IbookingRepository';
 import { PrismaService } from 'src/infrastructure/http/PrismaService';
 import { BookingStatus } from 'src/domain/ValueObject/BookingStatus';
-import { Prisma } from '../prisma/generated/prisma';
+import { Prisma } from '@prisma/client';
+
 
 export class PrismaBookingRepository implements IBookingRepository {
   constructor(private readonly prisma: PrismaService) {}

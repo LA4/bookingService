@@ -7,9 +7,28 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const config = new DocumentBuilder()
-    .setTitle('Booking Service')
-    .setDescription('The Booking Service API description')
-    .setVersion('0.1')
+    .setTitle('Booking Service API')
+    .setDescription(`
+      ## Cinema Booking Microservice
+      
+      RESTful API for managing movie bookings and tickets.
+      
+      ### Features
+      - Create and manage bookings
+      - Handle tickets for bookings
+      - Support multiple booking statuses (PENDING, CONFIRMED, CANCELLED, REFUNDED)
+      - User-specific operations with authorization checks
+      
+      ### Architecture
+      Built with Clean Architecture principles:
+      - **Domain**: Pure business logic
+      - **Application**: Use cases
+      - **Infrastructure**: Database and external services
+      - **Presentation**: HTTP controllers and DTOs
+    `)
+    .setVersion('1.0.0')
+    .addTag('Bookings', 'Booking management endpoints')
+    .addTag('Tickets', 'Ticket management endpoints')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
