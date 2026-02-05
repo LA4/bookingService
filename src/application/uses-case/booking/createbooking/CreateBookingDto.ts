@@ -1,3 +1,4 @@
+import { Ticket } from 'src/domain/entities/Ticket';
 import { BookingStatus } from '../../../../domain/ValueObject/BookingStatus';
 
 export class CreateBookingDto {
@@ -6,4 +7,5 @@ export class CreateBookingDto {
   public readonly seatIds: string[];
   public readonly totalPrice: number;
   public readonly status: BookingStatus;
+  public readonly tickets: Ticket[];
 }

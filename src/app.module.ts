@@ -3,10 +3,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { InfrastructureModule } from './infrastructure/infrastructure.module';
 import { DomainModule } from './domain/domain.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [InfrastructureModule, DomainModule],
+  imports: [InfrastructureModule, DomainModule, ConfigModule.forRoot()],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule { }
+ 

@@ -6,6 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  output   = "./generated/prisma"
 }
 
 datasource db {
@@ -28,18 +29,30 @@ model Booking {
 
   userId     String
   showtimeId String
-  tickets    Ticket[]
 
-  @@index([userId])
-  @@index([showtimeId])
+  tickets Ticket[]
+  
+  seatIds String[]
+
+  // external services imports// 
+  // @@index([userId])
+  // @@index([showtimeId])
+  // @@index([cinemaId])
+  // @@index([seatId])
+
+  
 }
 
 model Ticket {
-  id         String  @id @default(uuid())
-  price      Decimal @db.Decimal(10, 2)
-  seatId     String
+  id         String   @id @default(uuid())
+  price      Decimal  @db.Decimal(10, 2)
+  seatIds    String[]
   seatLabel  String?
   showtimeId String
-  bookingId  String
-  booking    Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  userId String
+
+  bookingId String
+  booking   Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  @@index([bookingId])
 }

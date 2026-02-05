@@ -1,14 +1,11 @@
-import { Booking } from './Booking';
-
 export class Ticket {
-  private constructor(
-    public id: string,
-    public price: number,
-    public seatId: string,
-    public seatLabel: string,
-    public showtimeId: string,
-    public bookingId: string,
-    public booking: Booking
+  constructor(
+    public readonly id: string,
+    public readonly price: number,
+    public readonly seatIds: string[],
+    public readonly seatLabel: string | null,
+    public readonly showtimeId: string,
+    public readonly userId: string,
+    public readonly bookingId?: string
   ) {}
-
 }

@@ -1,6 +1,6 @@
-export class BookingStatus {
-  PENDING: string;
-  CONFIRMED: string;
-  CANCELLED: string;
-  REFUNDED: string;
+export enum BookingStatus {
+  PENDING = 'PENDING',
+  CONFIRMED = 'CONFIRMED',
+  CANCELLED = 'CANCELLED',
+  REFUNDED = 'REFUNDED',
 }
