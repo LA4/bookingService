@@ -21,10 +21,8 @@ WORKDIR /app
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/package*.json ./
-# On recopie le dossier au même endroit exact
 COPY --from=builder /app/src/infrastructure/database/prisma ./src/infrastructure/database/prisma
 
 EXPOSE 3000
 
-# Utilise le chemin exact découvert grâce au ls -R
 CMD npx prisma migrate deploy --schema ./src/infrastructure/database/prisma/schema.prisma && node dist/src/main
