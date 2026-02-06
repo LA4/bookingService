@@ -33,4 +33,4 @@ RUN npm install -g prisma
 EXPOSE 3000
 
 # Lancement des migrations et de l'app via config
-CMD prisma migrate deploy && node dist/main
+CMD prisma migrate deploy && node dist/src/main
