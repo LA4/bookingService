@@ -29,7 +29,19 @@ async function bootstrap() {
     .setVersion('1.0.0')
     .addTag('Bookings', 'Booking management endpoints')
     .addTag('Tickets', 'Ticket management endpoints')
+    .addBearerAuth(
+    {
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
+      name: 'JWT',
+      description: 'Enter JWT token',
+      in: 'header',
+    },
+    'JWT-auth', // Ce nom doit correspondre à celui utilisé dans @ApiBearerAuth()
+  )
     .build();
+
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);

@@ -1,11 +1,17 @@
+import { Injectable, Inject } from '@nestjs/common';
 import { ITicketRepository } from 'src/domain/repositories/ITicketRepository';
 import { IBookingRepository } from 'src/domain/repositories/IbookingRepository';
 import { Ticket } from 'src/domain/entities/Ticket';
 import { GetTicketsByBookingIdDto } from './GetTicketsByBookingIdDto';
+import { TICKET_REPOSITORY, BOOKING_REPOSITORY } from 'src/domain/repositories/tokens';
 
+
+@Injectable()
 export class GetTicketsByBookingIdUseCase {
   constructor(
+    @Inject(TICKET_REPOSITORY)
     private readonly ticketRepository: ITicketRepository,
+    @Inject(BOOKING_REPOSITORY)
     private readonly bookingRepository: IBookingRepository
   ) {}
 

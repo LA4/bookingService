@@ -1,7 +1,9 @@
+import { CreateTicketDto } from 'src/application/uses-case/ticket/createTicket/CreateTicketDto';
 import { CreateTicketRequest, UpdateTicketRequest } from '../dto/request/TicketRequest';
 import { TicketResponse } from '../dto/response/TicketResponse';
-import { CreateTicketDto, UpdateTicketDto } from 'src/application/uses-case/ticket';
+
 import { Ticket } from 'src/domain/entities/Ticket';
+import { UpdateTicketDto } from 'src/application/uses-case/ticket/updateTicket/UpdateTicketDto';
 
 export class TicketMapper {
   /**

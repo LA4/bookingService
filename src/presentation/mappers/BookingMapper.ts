@@ -1,8 +1,10 @@
+import { CreateBookingDto } from 'src/application/uses-case/booking/createbooking/CreateBookingDto';
 import { CreateBookingRequest, UpdateBookingRequest } from '../dto/request/BookingRequest';
 import { BookingResponse, TicketResponse } from '../dto/response/BookingResponse';
-import { CreateBookingDto, UpdateBookingDto } from 'src/application/uses-case/booking';
-import { Booking } from 'src/domain/entities/booking/Booking';
+
+import { Booking } from 'src/domain/entities/Booking';
 import { Ticket } from 'src/domain/entities/Ticket';
+import { UpdateBookingDto } from 'src/application/uses-case/booking/updateBooking/UpdateBookingDto';
 
 export class BookingMapper {
   /**

@@ -2,7 +2,7 @@ import { Prisma } from '@prisma/client';
 import { Ticket } from 'src/domain/entities/Ticket';
 import { ITicketRepository } from 'src/domain/repositories/ITicketRepository';
 
-import { PrismaService } from 'src/infrastructure/http/PrismaService';
+import { PrismaService } from 'src/infrastructure/database/prisma/PrismaService';
 
 export class PrismaTicketRepository implements ITicketRepository {
   constructor(private readonly prisma: PrismaService) {}

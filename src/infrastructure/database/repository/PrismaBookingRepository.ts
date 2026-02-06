@@ -1,7 +1,7 @@
-import { Booking } from 'src/domain/entities/booking/Booking';
+import { Booking } from 'src/domain/entities/Booking';
 import { Ticket } from 'src/domain/entities/Ticket';
 import { IBookingRepository } from 'src/domain/repositories/IbookingRepository';
-import { PrismaService } from 'src/infrastructure/http/PrismaService';
+import { PrismaService } from 'src/infrastructure/database/prisma/PrismaService';
 import { BookingStatus } from 'src/domain/ValueObject/BookingStatus';
 import { Prisma } from '@prisma/client';
 
