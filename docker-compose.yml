@@ -13,23 +13,23 @@ services:
     networks:
       - private-net
 
-api:
-  build: .
-  container_name: booking_api
-  restart: always
-  environment:
-    DATABASE_URL: postgresql://booking:booking@postgres:5432/booking?schema=public
-  ports:
-    - '3000:3000'
-  depends_on:
-    - postgres
+  api:
+    build: .
+    container_name: booking_api
+    restart: always
+    environment:
+      DATABASE_URL: postgresql://booking:booking@postgres:5432/booking?schema=public
+    ports:
+      - '3000:3000'
+    depends_on:
+      - postgres
+    networks:
+      - private-net
+      - reseau-web
   networks:
-    - private-net
-    - reseau-web
-networks:
-  private-net:
-    driver: bridge
-  reseau-web:
-    external: true
-volumes:
-  postgres:
+    private-net:
+      driver: bridge
+    reseau-web:
+      external: true
+  volumes:
+    postgres:
