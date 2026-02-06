@@ -31,5 +31,6 @@ networks:
     driver: bridge
   reseau-web:
     external: true
-  volumes:
-    postgres:
+
+volumes:
+  postgres:
