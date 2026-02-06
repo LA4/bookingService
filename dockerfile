@@ -1,39 +1,30 @@
-# --- ÉTAPE 1 : Dépendances et Build ---
+# --- ÉTAPE 1 : Build ---
 FROM node:20-alpine AS builder
-
 WORKDIR /app
 
-# Copie des fichiers de définition des dépendances
 COPY package*.json ./
-COPY src/infrastructure/database/prisma ./prisma/
+# On respecte ton architecture dès le début
+COPY src/infrastructure/database/prisma ./src/infrastructure/database/prisma/
 
-# Installation des dépendances (y compris devDependencies pour le build)
 RUN npm install
-
-# Copie du reste du code source
 COPY . .
 
-# Génération du client Prisma et build du projet NestJS
-RUN npx prisma generate
+# On génère le client en pointant explicitement le schéma
+RUN npx prisma generate --schema ./src/infrastructure/database/prisma/schema.prisma
 RUN npm run build
-
-# Nettoyage pour ne garder que les dépendances de production
 RUN npm prune --production
 
 # --- ÉTAPE 2 : Exécution ---
 FROM node:20-alpine
-
 WORKDIR /app
 
-# On récupère uniquement le nécessaire du builder
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/package*.json ./
-COPY --from=builder /app/prisma ./prisma
+# On recopie le dossier au même endroit exact
+COPY --from=builder /app/src/infrastructure/database/prisma ./src/infrastructure/database/prisma
 
-# Exposition du port (par défaut 3000 pour Nest)
 EXPOSE 3000
 
-# Commande de démarrage
-# On utilise une commande qui lance les migrations Prisma avant de démarrer l'app
-CMD npx prisma migrate deploy --url $DATABASE_URL && node dist/main
+# On lance la migration en pointant le schéma, puis l'app
+CMD npx prisma migrate deploy --schema ./src/infrastructure/database/prisma/schema.prisma && node dist/main
