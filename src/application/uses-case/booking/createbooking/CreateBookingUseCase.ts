@@ -1,11 +1,16 @@
+import { Injectable, Inject } from '@nestjs/common';
+import { Booking } from 'src/domain/entities/Booking';
 import { CreateBookingDto } from './CreateBookingDto';
 import { IBookingRepository } from 'src/domain/repositories/IbookingRepository';
-import { Booking } from 'src/domain/entities/booking/Booking';
 import { IAuthService } from 'src/domain/repositories/IExternalServices';
+import { BOOKING_REPOSITORY, AUTH_SERVICE } from 'src/domain/repositories/tokens';
 
+@Injectable()
 export class CreateBookingUseCase {
   constructor(
+    @Inject(BOOKING_REPOSITORY)
     private readonly bookingRepository: IBookingRepository,
+    @Inject(AUTH_SERVICE)
     private readonly authService: IAuthService
   ) {}
 

@@ -1,8 +1,14 @@
+import { Injectable, Inject } from '@nestjs/common';
 import { IBookingRepository } from 'src/domain/repositories/IbookingRepository';
 import { DeleteBookingDto } from './DeleteBookingDto';
+import { BOOKING_REPOSITORY } from 'src/domain/repositories/tokens';
 
+@Injectable()
 export class DeleteBookingUseCase {
-  constructor(private readonly bookingRepository: IBookingRepository) {}
+  constructor(
+    @Inject(BOOKING_REPOSITORY)
+    private readonly bookingRepository: IBookingRepository
+  ) {}
 
   async execute(dto: DeleteBookingDto): Promise<void> {
     const booking = await this.bookingRepository.findById(dto.bookingId);

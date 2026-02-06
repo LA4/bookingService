@@ -7,20 +7,10 @@ import {
     Put,
     Delete,
     HttpCode,
-    HttpStatus
+    HttpStatus,
+    UseGuards
 } from "@nestjs/common";
-import { ApiTags, ApiOperation, ApiResponse, ApiBody, ApiParam } from '@nestjs/swagger';
-import {
-    CreateTicketUseCase,
-    GetTicketByIdUseCase,
-    GetTicketByIdDto,
-    GetAllTicketsUseCase,
-    GetTicketsByBookingIdUseCase,
-    GetTicketsByBookingIdDto,
-    UpdateTicketUseCase,
-    DeleteTicketUseCase,
-    DeleteTicketDto
-} from "src/application/uses-case/ticket";
+import { ApiTags, ApiOperation, ApiResponse, ApiBody, ApiParam, ApiBearerAuth } from '@nestjs/swagger';
 import {
     CreateTicketRequest,
     UpdateTicketRequest,
@@ -34,9 +24,21 @@ import {
     DeleteTicketRequestSwagger
 } from '../dto/request/TicketRequest.swagger';
 import { TicketResponseSwagger } from '../dto/response/BookingResponse.swagger';
+import { CreateTicketUseCase } from "src/application/uses-case/ticket/createTicket/CreateTicketUseCase";
+import { GetTicketByIdUseCase } from "src/application/uses-case/ticket/getTicketById/GetTicketByIdUseCase";
+import { GetAllTicketsUseCase } from "src/application/uses-case/ticket/getAllTickets/GetAllTicketsUseCase";
+import { GetTicketsByBookingIdUseCase } from "src/application/uses-case/ticket/getTicketsByBookingId/GetTicketsByBookingIdUseCase";
+import { UpdateTicketUseCase } from "src/application/uses-case/ticket/updateTicket/UpdateTicketUseCase";
+import { DeleteTicketUseCase } from "src/application/uses-case/ticket/deleteTicket/DeleteTicketUseCase";
+import { GetTicketByIdDto } from "src/application/uses-case/ticket/getTicketById/GetTicketByIdDto";
+import { GetTicketsByBookingIdDto } from "src/application/uses-case/ticket/getTicketsByBookingId/GetTicketsByBookingIdDto";
+import { DeleteTicketDto } from "src/application/uses-case/ticket/deleteTicket/DeleteTicketDto";
+import { AuthGuard } from "../guards/auth.guard";
 
 @ApiTags('Tickets')
 @Controller('tickets')
+@ApiBearerAuth()
+@UseGuards(AuthGuard)
 export class TicketController {
 
     constructor(

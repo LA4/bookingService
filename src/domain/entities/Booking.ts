@@ -1,7 +1,7 @@
 
 import { BookingStatus } from 'src/domain/ValueObject/BookingStatus';
 import { v4 as uuid } from 'uuid';
-import { Ticket } from '../Ticket';
+import { Ticket } from './Ticket';
 
 export class Booking {
   constructor(
