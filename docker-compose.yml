@@ -26,10 +26,10 @@ services:
     networks:
       - private-net
       - reseau-web
-  networks:
-    private-net:
-      driver: bridge
-    reseau-web:
-      external: true
+networks:
+  private-net:
+    driver: bridge
+  reseau-web:
+    external: true
   volumes:
     postgres:
