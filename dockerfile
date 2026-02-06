@@ -26,5 +26,5 @@ COPY --from=builder /app/src/infrastructure/database/prisma ./src/infrastructure
 
 EXPOSE 3000
 
-# On lance la migration en pointant le schéma, puis l'app
-CMD npx prisma migrate deploy --schema ./src/infrastructure/database/prisma/schema.prisma && node dist/main
+# Utilise le chemin exact découvert grâce au ls -R
+CMD npx prisma migrate deploy --schema ./src/infrastructure/database/prisma/schema.prisma && node dist/src/main
