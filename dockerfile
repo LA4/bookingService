@@ -36,4 +36,4 @@ EXPOSE 3000
 
 # Commande de démarrage
 # On utilise une commande qui lance les migrations Prisma avant de démarrer l'app
-CMD npx prisma migrate deploy && node dist/main
+CMD npx prisma migrate deploy --url $DATABASE_URL && node dist/main
