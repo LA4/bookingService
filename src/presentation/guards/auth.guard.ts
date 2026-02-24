@@ -34,7 +34,7 @@ export class AuthGuard implements CanActivate {
 
       const { data } = await firstValueFrom(
         this.httpService.post<AuthResponse>(
-          `${authUrl}/validate`,
+          `${authUrl}/valid-token`,
           {},
           {
             headers: { Authorization: `Bearer ${token}` },
