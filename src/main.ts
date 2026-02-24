@@ -8,7 +8,8 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Booking Service API')
-    .setDescription(`
+    .setDescription(
+      `
       ## Cinema Booking Microservice
       
       RESTful API for managing movie bookings and tickets.
@@ -25,23 +26,20 @@ async function bootstrap() {
       - **Application**: Use cases
       - **Infrastructure**: Database and external services
       - **Presentation**: HTTP controllers and DTOs
-    `)
+    `,
+    )
     .setVersion('1.0.0')
     .addTag('Bookings', 'Booking management endpoints')
     .addTag('Tickets', 'Ticket management endpoints')
-    .addBearerAuth(
-    {
+    .addBearerAuth({
       type: 'http',
       scheme: 'bearer',
       bearerFormat: 'JWT',
       name: 'JWT',
       description: 'Enter JWT token',
       in: 'header',
-    },
-    'JWT-auth', // Ce nom doit correspondre à celui utilisé dans @ApiBearerAuth()
-  )
+    })
     .build();
-
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);

@@ -27,6 +27,7 @@ export class AuthGuard implements CanActivate {
     const authHeader = request.headers.authorization;
     const token = authHeader?.split(' ')[1];
 
+    console.warn(token, authHeader);
     if (!token) throw new UnauthorizedException('Missing token');
 
     try {
@@ -41,7 +42,6 @@ export class AuthGuard implements CanActivate {
           },
         ),
       );
-
       // On attache simplement l'utilisateur à la requête pour les prochains guards/handlers
       request['user'] = data;
       return true;
