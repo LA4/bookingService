@@ -6,6 +6,18 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  // ── CORS ──────────────────────────────────────────────────────────────────
+  const rawOrigins = process.env.CORS_ORIGIN ?? '*';
+  const origins =
+    rawOrigins === '*' ? '*' : rawOrigins.split(',').map((o) => o.trim());
+
+  app.enableCors({
+    origin: origins,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: origins !== '*',
+  });
+
   const config = new DocumentBuilder()
     .setTitle('Booking Service API')
     .setDescription(
