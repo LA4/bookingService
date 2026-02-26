@@ -3,7 +3,10 @@ import { Booking } from 'src/domain/entities/Booking';
 import { CreateBookingDto } from './CreateBookingDto';
 import { IBookingRepository } from 'src/domain/repositories/IbookingRepository';
 import { IAuthService } from 'src/domain/repositories/IExternalServices';
-import { BOOKING_REPOSITORY, AUTH_SERVICE } from 'src/domain/repositories/tokens';
+import {
+  BOOKING_REPOSITORY,
+  AUTH_SERVICE,
+} from 'src/domain/repositories/tokens';
 
 @Injectable()
 export class CreateBookingUseCase {
@@ -11,7 +14,7 @@ export class CreateBookingUseCase {
     @Inject(BOOKING_REPOSITORY)
     private readonly bookingRepository: IBookingRepository,
     @Inject(AUTH_SERVICE)
-    private readonly authService: IAuthService
+    private readonly authService: IAuthService,
   ) {}
 
   async execute(dto: CreateBookingDto): Promise<Booking> {
@@ -21,6 +24,13 @@ export class CreateBookingUseCase {
     if (!userValid) {
       throw new Error('Unauthorized: Invalid user');
     }
+
+    console.log(
+      'Creating booking for user:',
+      userValid.id,
+      'with DTO:',
+      JSON.stringify(dto),
+    );
 
     // Créer l'entité Booking
     const booking = Booking.createBooking({
@@ -44,4 +54,3 @@ export class CreateBookingUseCase {
     return createdBooking;
   }
 }
-

@@ -5,8 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
-  moduleFormat    = "cjs"
+  provider     = "prisma-client-js"
+  moduleFormat = "cjs"
 }
 
 datasource db {
@@ -31,7 +31,7 @@ model Booking {
   showtimeId String
 
   tickets Ticket[]
-  
+
   seatIds String[]
 
   // external services imports// 
@@ -39,8 +39,6 @@ model Booking {
   // @@index([showtimeId])
   // @@index([cinemaId])
   // @@index([seatId])
-
-  
 }
 
 model Ticket {
@@ -49,7 +47,7 @@ model Ticket {
   seatIds    String[]
   seatLabel  String?
   showtimeId String
-  userId String
+  userId     String
 
   bookingId String
   booking   Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)

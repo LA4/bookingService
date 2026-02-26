@@ -1,4 +1,3 @@
-
 import { BookingStatus } from 'src/domain/ValueObject/BookingStatus';
 import { v4 as uuid } from 'uuid';
 import { Ticket } from './Ticket';
@@ -17,7 +16,13 @@ export class Booking {
   ) {}
 
   public static createBooking(bookingInfos: Booking): Booking {
-    if (!bookingInfos.totalPrice || !bookingInfos.userId || !bookingInfos.showtimeId || !bookingInfos.tickets) {
+    if (
+      bookingInfos.totalPrice === undefined ||
+      bookingInfos.totalPrice === null ||
+      !bookingInfos.userId ||
+      !bookingInfos.showtimeId ||
+      !bookingInfos.tickets
+    ) {
       throw new Error('Missing required booking information');
     }
 
@@ -30,7 +35,10 @@ export class Booking {
       bookingInfos.totalPrice,
       bookingInfos.userId,
       bookingInfos.showtimeId,
-      bookingInfos.tickets,
+      bookingInfos.tickets.map((t) => ({
+        ...t,
+        id: t.id || uuid(),
+      })) as Ticket[],
     );
   }
 

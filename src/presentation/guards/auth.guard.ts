@@ -1,25 +1,19 @@
-// auth.guard.ts
 import {
   CanActivate,
   ExecutionContext,
   Injectable,
   UnauthorizedException,
+  Inject,
 } from '@nestjs/common';
-import { HttpService } from '@nestjs/axios';
-import { ConfigService } from '@nestjs/config';
-import { firstValueFrom } from 'rxjs';
 import { Request } from 'express';
-
-interface AuthResponse {
-  id: string;
-  role: string;
-}
+import { AUTH_SERVICE } from 'src/domain/repositories/tokens';
+import { IAuthService } from 'src/domain/repositories/IExternalServices';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
-    private readonly httpService: HttpService,
-    private readonly configService: ConfigService,
+    @Inject(AUTH_SERVICE)
+    private readonly authService: IAuthService,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -27,23 +21,17 @@ export class AuthGuard implements CanActivate {
     const authHeader = request.headers.authorization;
     const token = authHeader?.split(' ')[1];
 
-    console.warn(token, authHeader);
     if (!token) throw new UnauthorizedException('Missing token');
 
     try {
-      const authUrl = this.configService.get('AUTH_SERVICE_URL');
+      const { userId, isValid } = await this.authService.validateToken(token);
 
-      const { data } = await firstValueFrom(
-        this.httpService.post<AuthResponse>(
-          `${authUrl}/valid-token`,
-          {},
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          },
-        ),
-      );
-      // On attache simplement l'utilisateur à la requête pour les prochains guards/handlers
-      request['user'] = data;
+      if (!isValid) {
+        throw new UnauthorizedException('Invalid token');
+      }
+
+      // On attache simplement l'id au request pour les handlers
+      request['user'] = { id: userId };
       return true;
     } catch (error) {
       throw new UnauthorizedException('Invalid token');
